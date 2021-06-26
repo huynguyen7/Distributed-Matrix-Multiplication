@@ -9,9 +9,8 @@ import numpy as np
     @author: Huy Nguyen
     - Cannon's Algorithm for Matrix Multiplication (Non-parallel, non-distributed version).
     - This implementation does not include any part of multiprocessing (just for math intuition only).
-    - The main advantage of the algorithm is that its storage requirements remain constant and are independent of the number of processomat3.
+    - The main advantage of the algorithm is that its storage requirements remain constant and are independent of the number of processes.
     - ONLY ACCEPT SQUARED MATRICES.
-    - Given matrix A and B: A (m x k) and B(k x n), return C = A.B (m x n)
     - Source:
         +https://www3.nd.edu/~zxu2/acms60212-40212/Lec-07-3.pdf
         +https://www.cs.utah.edu/~hari/teaching/paralg/tutorial/05_Cannons.html
