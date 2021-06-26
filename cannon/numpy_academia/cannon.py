@@ -35,21 +35,17 @@ def naive_matrix_mult(mat1, mat2):
 
 
 def shift_left(mat, i, amount):  # Shift left `i` row `amount` step.
-    rightmost_index = mat.shape[0]-1
-    for k in range(amount):
-        tmp = mat[i][0]
-        for j in range(rightmost_index):
-            mat[i,j] = mat[i,j+1]
-        mat[i,rightmost_index] = tmp
+    tmp = np.zeros(p_sqrt)
+    for j in range(p_sqrt):
+        tmp[j] = mat[i,(j+amount)%p_sqrt]
+    mat[i,:] = tmp
 
 
 def shift_up(mat, j, amount):  # Shift up `j` row `amount` step.
-    lowest_index = mat.shape[1]-1
-    for k in range(amount):
-        tmp = mat[0][j]
-        for i in range(lowest_index):
-            mat[i,j] = mat[i+1,j]
-        mat[lowest_index,j] = tmp
+    tmp = np.zeros(p_sqrt)
+    for i in range(p_sqrt):
+        tmp[i] = mat[(i+amount)%p_sqrt,j]
+    mat[:,j] = tmp
 
 
 def cannon_matrix_mult(mat1, mat2):
@@ -59,6 +55,8 @@ def cannon_matrix_mult(mat1, mat2):
             and mat1.shape[0] == mat2.shape[0], "NON-SQUARED MATRICES ARE NOT ACCEPTED FOR CANNON'S ALGORITHM"
 
     mat3 = np.zeros(shape=(mat1.shape[0],mat2.shape[1]), dtype=np.float64)
+
+    global p_sqrt
     p_sqrt = mat1.shape[0]
 
     for i in range(p_sqrt):
@@ -80,3 +78,12 @@ def cannon_matrix_mult(mat1, mat2):
                 shift_up(mat2,j,1)
 
     return mat3
+
+
+if __name__ == "__main__":
+    A = np.arange(0,9).reshape(3,-1)
+    B = np.arange(0,9).reshape(3,-1)
+    C = A@B
+    CALC = cannon_matrix_mult(A,B)
+    print('TRUTH:\n', C)
+    print('CALC:\n', CALC)
