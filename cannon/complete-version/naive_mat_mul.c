@@ -36,11 +36,11 @@ void print_mat(int** mat, int num_rows, int num_cols) {
     }
 }
 
-void mat_mul(int** mat1, int** mat2, int** mat3, int n) { // FOR SIMPLICITY, SQUARED-MATRIX ONLY
+void mat_mul(int** mat1, int** mat2, int*** mat3, int n) { // FOR SIMPLICITY, SQUARED-MATRIX ONLY
     for(int i = 0; i < n; ++i) {
         for(int j = 0; j < n; ++j) {
             for(int k = 0; k < n; ++k) {
-                mat3[i][j] += mat1[i][k]*mat2[k][j];
+                (*mat3)[i][j] += mat1[i][k]*mat2[k][j];
             }
         }
     }
@@ -133,10 +133,16 @@ int main(int argc, char* argv[]) {
         free_mat(&mat2);
         return 0;
     }
+
+    // Assign default value to mat3
+    for(int i = 0; i < n; ++i) {
+        for(int j = 0; j < n; ++j)
+            mat3[i][j] = 0;
+    }
     
     // Do the math..
     double start_time = omp_get_wtime();
-    mat_mul(mat1, mat2, mat3, n);
+    mat_mul(mat1, mat2, &mat3, n);
     double time_taken = omp_get_wtime() - start_time;
     printf("Time taken in SEQUENTIAL: %.8fs.\n", time_taken);
     

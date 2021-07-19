@@ -6,10 +6,6 @@ export OMP_NUM_THREADS=8
 #./main.out
 #rm main.out
 
-#mpicc -L/opt/homebrew/lib -fopenmp cannon_mat_mul.c -o main.out
-#mpiexec --hostfile hostfile -np 1 main.out
-#rm main.out
-
 mpicc -L/opt/homebrew/lib -fopenmp cannon_mat_mul.c -o main.out
 mpiexec --hostfile hostfile -np $1 main.out
 rm main.out
