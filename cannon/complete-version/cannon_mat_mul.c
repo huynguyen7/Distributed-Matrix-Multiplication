@@ -367,14 +367,14 @@ int main(int argc, char* argv[]) {
                 local_mat3[i][j] += tmp_results[i][j];
         }
         
-        // Shift local_mat1 left 1 steps.
+        // Shift left 1 steps.
         MPI_Cart_shift(comm_world, 1, -1, &right, &left);
         MPI_Sendrecv_replace(local_mat1[0], block_dim*block_dim, MPI_INT,
                 left, TAG, // Receiving params
                 right, TAG, // Sending params
                 comm_world, MPI_STATUS_IGNORE);
         
-        // Shift local_mat2 up 1 steps.
+        // Shift up 1 steps.
         MPI_Cart_shift(comm_world, 0, -1, &down, &up);
         MPI_Sendrecv_replace(local_mat2[0], block_dim*block_dim, MPI_INT,
                 up, TAG, // Receiving params
